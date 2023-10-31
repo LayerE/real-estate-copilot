@@ -1,0 +1,7 @@
+{
+	"name": "Real estate AI page buider",
+	"build": {
+		"context": "..",
+		"dockerfile": "../Dockerfile"
+	}
+}
