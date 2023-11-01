@@ -103,22 +103,50 @@ const generateHtml = async (
 	user: string,
 	res: Response
 ) => {
-	const template = `As a UI designer specializing in real estate-specific websites, your task is to create a clear and visually appealing HTML UI using Tailwind CSS. This UI component is designed for a single-page real estate listing website. Please design a UI component that includes the following real estate-specific elements:
+	// const template = `You are a bot designed to create real estate websites. You are given a real estate name, description, area, city, logo, and images. Your task is to create a clear and visually appealing single-page website using HTML, Tailwind CSS & Font Awesome Icons. The website should include the following sections:
 
-		1. Header Section: Include real estate name, logo & navigation links to the following sections using #anchors
-		2. Hero Section: Create a captivating headline & description for the property with a propery image. This section should also include a call-to-action button for the user to contact the real estate agent. Use a random image from the following list: {images}
-		3. Details Section: Include a section that displays the property details, such as price, location, area, number of bedrooms, number of bathrooms. Each detail should be displayed inside a card and the cards should be displayed in flex row. include icons for each detail using fontawesome icons.
-		4. Gallery Section: Showcase a gallery of property images.
-		5. Location Section: Include a map that displays the property location.
+	// 	1. Header: Include real estate name, logo & navigation links to the following sections using #anchors
+	// 	2. Hero: Create a captivating headline & tagline for the property with a propery image. This section should also include a call-to-action button for the user to contact the real estate agent. Use a random image from the given images.
+	//     3. About: Create a good description for the property from the given description. The description should be at least 100 words long. If you cannot create a description from the given description, create a random description. The description should be at least 100 words long. Include a image of the property in this section. Do not use the same image as the hero section.
+	// 	4. Amenities: Include a list of amenities for the property. If the description do not have any amenities, create a list of random amenities. Include related icons for each amenities using Font Awesome Icons. Each amneties should be displayed as a card. You should also add details such as number of bathroom and bedrooms in as a Amenities
+	// 	5. Gallery: Showcase a gallery of property images.
+	//     6. Brochure: Inlcude a link to the property brochure. The brochure should be opened in a new tab.
+	//     7. Contact: Include a contact form with the following fields: name, email, phone, message. The form should be submitted to the following endpoint: https://api.example.com/submit. The form should be validated using HTML5 validation. This section should also include a Google map which shows the property location.
+
+	//     Add the following scripts to the head of the HTML document:
+	//     Tailwind CSS: <script src="https://cdn.tailwindcss.com"></script>
+	//     Font Awesome Icons: <script src="https://kit.fontawesome.com/87f2528d81.js" crossorigin="anonymous"></script>
+
+	// 	Start with <!DOCTYPE html> and end with </html class="scroll-smooth">. The code should be formatted for readability.
+	//     You must write code in full and do not let any section incomplete by adding comments.
+
+	// 	Context
+	// 	---
+	// 	Real Estate Name: {name}
+	// 	Description: {description}
+	// 	Area: {area}
+	// 	City: {city}
+	// 	Images: {images}
+	// 	Logo Image: {logo}
+	// 	Google Map API Key: {map}
+	// 	HTML:`
+
+	const template = `You are a bot designed to create real estate websites. You are given a real estate name, description, area, city, logo, and images. Your task is to create a clear and visually appealing single-page website using HTML, Tailwind CSS & Font Awesome Icons. The website should include the following sections:
+
+		1. Header: Include real estate name, logo & navigation links to the following sections using #anchors
+		2. Hero: Create a captivating headline & tagline for the property with a propery image. This section should also include a call-to-action button for the user to contact the real estate agent. Use a random image from the given images.
+        3. About: Create a good description for the property from the given description. The description should be at least 100 words long. If you cannot create a description from the given description, create a random description. The description should be at least 100 words long. Include a image of the property in this section. Do not use the same image as the hero section.
+		4. Amenities: Include a list of amenities for the property. If the description do not have any amenities, create a list of random amenities. Include related icons for each amenities using Font Awesome Icons. Each amneties should be displayed as a card. You should also add details such as number of bathroom and bedrooms in as a Amenities
+		5. Gallery: Showcase a gallery of property images.
+        6. Contact: Include a contact form with the following fields: name, email, phone, message. The form should be submitted to the following endpoint: https://api.example.com/submit. The form should be validated using HTML5 validation. This section should also include a Google map which shows the property location.
+
+        Add the following scripts to the head of the HTML document:
+        Tailwind CSS: <script src="https://cdn.tailwindcss.com"></script>
+        Font Awesome Icons: <script src="https://kit.fontawesome.com/87f2528d81.js" crossorigin="anonymous"></script>
 		
-		Please ensure the HTML code is valid and properly structured, incorporating the necessary CDN links for Tailwind CSS, Fontawesome icons, jQuery, Animate.css, Google Maps API, and any additional CSS or JS files.
-		
-		Remember to keep the design minimalistic, intuitive, and visually appealing. Your attention to detail is highly appreciated. Once you complete the design, provide the HTML code for the UI component. The code should be valid HTML, formatted for readability, and include the necessary CDN links for Tailwind CSS, icons, and any additional libraries used for data visualization.
-		
-		Start with <!DOCTYPE html> and end with </html>. The code should be formatted for readability.
-		body tag should include the "scroll-smooth" class from tailwind.
-		you should never write comments in the code & always complete all the sections.
-		
+		Start with <!DOCTYPE html> and end with </html class="scroll-smooth">. The code should be formatted for readability.
+        You must write code in full and do not let any section incomplete by adding comments.
+
 		Context
 		---
 		Real Estate Name: {name}
@@ -127,7 +155,7 @@ const generateHtml = async (
 		City: {city}
 		Images: {images}
 		Logo Image: {logo}
-		Map API Key: {map}
+		Google Map API Key: {map}
 		HTML:`
 
 	const prompt = new PromptTemplate({
@@ -144,10 +172,10 @@ const generateHtml = async (
 
 	const html = await chain.call(
 		{
-			name: name[0],
-			description: description[0],
-			area: area[0],
-			city: city[0],
+			name: name,
+			description: description,
+			area: area,
+			city: city,
 			images: JSON.stringify(images),
 			map: MAP_API_KEY,
 			logo
