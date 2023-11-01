@@ -1,0 +1,18 @@
+const { S3_ENDPOINT, S3_ACCESS_KEY, S3_SECRET_KEY, PORT, S3_BUCKET, S3_PUBLIC_URL, OPENAI_API_KEY, CLERK_PUBLIC_KEY, MAP_API_KEY, BE_URL } =
+	process.env
+
+if (
+	!S3_ENDPOINT ||
+	!S3_ACCESS_KEY ||
+	!S3_SECRET_KEY ||
+	!S3_BUCKET ||
+	!S3_PUBLIC_URL ||
+	!OPENAI_API_KEY ||
+	!CLERK_PUBLIC_KEY ||
+	!MAP_API_KEY ||
+	!BE_URL
+) {
+	throw new Error('Missing environment variables. See env.example for more information.')
+}
+
+export { S3_ENDPOINT, S3_ACCESS_KEY, S3_SECRET_KEY, PORT, S3_BUCKET, S3_PUBLIC_URL, OPENAI_API_KEY, CLERK_PUBLIC_KEY, MAP_API_KEY, BE_URL }

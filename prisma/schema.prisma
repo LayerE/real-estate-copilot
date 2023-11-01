@@ -13,17 +13,17 @@ model Listing {
     description String
     area        String
     city        String
+    logo        String
     html        String
     userId      String
     createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     Image       Image[]
-
-    @@unique([id, userId])
 }
 
 model Image {
     id        String   @id @default(uuid())
-    url       String
+    key       String
     listing   Listing  @relation(fields: [listingId], references: [id])
     listingId String
     createdAt DateTime @default(now())
